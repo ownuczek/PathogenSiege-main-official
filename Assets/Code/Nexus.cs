@@ -5,21 +5,21 @@ using UnityEngine;
 public class Nexus : MonoBehaviour
 {
     [Header("Attributes")]
-    [SerializeField] private int maxHealth = 100; // Maksymalne zdrowie Nexusa
-    [SerializeField] private float damageInterval = 1f; // Czas miêdzy kolejnymi atakami wirusów
-    [SerializeField] private int damagePerVirus = 10; // Iloœæ HP tracona przy jednym ataku wirusa
+    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private float damageInterval = 1f;
+    [SerializeField] private int damagePerVirus = 10;
 
-    private int currentHealth; // Aktualne zdrowie Nexusa
-    private List<EnemyMovement> attackingViruses = new List<EnemyMovement>(); // Lista wirusów atakuj¹cych Nexus
+    private int currentHealth;
+    private List<EnemyMovement> attackingViruses = new List<EnemyMovement>();
     private GameOverManager gameOverManager;
     private Coroutine damageCoroutine; // Do przechowywania referencji do coroutiny
 
     private void Start()
     {
         currentHealth = maxHealth;
-        gameOverManager = FindObjectOfType<GameOverManager>(); // Szukamy obiektu GameOverManager
+        gameOverManager = FindObjectOfType<GameOverManager>();
 
-        // Sprawdzamy, czy GameOverManager istnieje w scenie
+
         if (gameOverManager == null)
         {
             Debug.LogError("GameOverManager not found in the scene!");
@@ -28,18 +28,18 @@ public class Nexus : MonoBehaviour
 
     private void Update()
     {
-        // SprawdŸ, czy Nexus ma jeszcze ¿ycie
+
         if (currentHealth <= 0)
         {
             DestroyNexus();
         }
     }
 
-    // Metoda do rozpoczêcia ataku wirusa
+
     public void StartVirusAttack(EnemyMovement virus)
     {
         attackingViruses.Add(virus);
-        // Rozpoczynamy coroutine, jeœli to pierwszy wirus
+
         if (attackingViruses.Count == 1 && damageCoroutine == null)
         {
             damageCoroutine = StartCoroutine(HandleDamageOverTime());
@@ -50,7 +50,7 @@ public class Nexus : MonoBehaviour
     public void StopVirusAttack(EnemyMovement virus)
     {
         attackingViruses.Remove(virus);
-        // Jeœli lista wirusów jest pusta, zatrzymujemy coroutine
+
         if (attackingViruses.Count == 0 && damageCoroutine != null)
         {
             StopCoroutine(damageCoroutine);
@@ -69,15 +69,22 @@ public class Nexus : MonoBehaviour
         }
     }
 
-    // Metoda do zniszczenia Nexusa
+
     private void DestroyNexus()
     {
         Debug.Log("Nexus zosta³ zniszczony! Koniec gry.");
 
-        // Wywo³ujemy ekran koñcowy
+        // Wywo³ujemy ekran Game Over
         if (gameOverManager != null)
         {
             gameOverManager.ShowGameOver();
+        }
+
+        // Zamiast koñczyæ poziom, wyœwietlamy ekran Level Completed
+        GameManagement gameManagement = FindObjectOfType<GameManagement>(); // Znajdujemy obiekt GameManagement
+        if (gameManagement != null)
+        {
+            gameManagement.ShowLevelCompleted(); // Pokazujemy ekran Level Completed
         }
     }
 }

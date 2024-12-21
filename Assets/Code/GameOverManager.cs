@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameOverManager : MonoBehaviour
 {
     [Header("UI References")]
-    [SerializeField] private GameObject gameOverPanel; // Panel z informacj¹ o przegranej
+    [SerializeField] private GameObject gameOverPanel;
 
     private void Start()
     {
