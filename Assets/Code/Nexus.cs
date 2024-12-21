@@ -19,7 +19,6 @@ public class Nexus : MonoBehaviour
         currentHealth = maxHealth;
         gameOverManager = FindObjectOfType<GameOverManager>();
 
-
         if (gameOverManager == null)
         {
             Debug.LogError("GameOverManager not found in the scene!");
@@ -28,13 +27,11 @@ public class Nexus : MonoBehaviour
 
     private void Update()
     {
-
         if (currentHealth <= 0)
         {
             DestroyNexus();
         }
     }
-
 
     public void StartVirusAttack(EnemyMovement virus)
     {
@@ -69,7 +66,6 @@ public class Nexus : MonoBehaviour
         }
     }
 
-
     private void DestroyNexus()
     {
         Debug.Log("Nexus zosta³ zniszczony! Koniec gry.");
@@ -77,14 +73,7 @@ public class Nexus : MonoBehaviour
         // Wywo³ujemy ekran Game Over
         if (gameOverManager != null)
         {
-            gameOverManager.ShowGameOver();
-        }
-
-        // Zamiast koñczyæ poziom, wyœwietlamy ekran Level Completed
-        GameManagement gameManagement = FindObjectOfType<GameManagement>(); // Znajdujemy obiekt GameManagement
-        if (gameManagement != null)
-        {
-            gameManagement.ShowLevelCompleted(); // Pokazujemy ekran Level Completed
+            gameOverManager.ShowGameOver(); // Wyœwietlamy ekran Game Over
         }
     }
 }

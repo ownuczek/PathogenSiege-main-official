@@ -8,7 +8,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
 
     [Header("Attributes")]
-    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float moveSpeed = 2f; // Prêdkoœæ poruszania siê wroga
 
     private Transform target;
     private int pathIndex = 0;
@@ -45,7 +45,7 @@ public class EnemyMovement : MonoBehaviour
         if (attackingNexus) return; // Zatrzymaj ruch, jeœli wirus atakuje Nexus
 
         Vector2 direction = (target.position - transform.position).normalized;
-        rb.velocity = direction * moveSpeed;
+        rb.velocity = direction * moveSpeed; // Zastosowanie zmiennej moveSpeed
     }
 
     private void StartAttackingNexus()
@@ -70,5 +70,11 @@ public class EnemyMovement : MonoBehaviour
     {
         // Wywo³ywane przez Nexus, gdy wirus przestaje atakowaæ (np. ginie)
         Destroy(gameObject);
+    }
+
+    // Dodajemy metodê, aby zmieniaæ prêdkoœæ wroga z zewn¹trz
+    public void SetSpeed(float newSpeed)
+    {
+        moveSpeed = newSpeed; // Ustawienie nowej prêdkoœci
     }
 }

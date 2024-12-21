@@ -1,20 +1,32 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine;  // Upewnij siê, ¿e ta linia jest dodana
+using TMPro;  // Dodaj przestrzeñ nazw TextMeshPro, jeœli u¿ywasz TextMeshPro
+using UnityEngine.SceneManagement;  // Dodaj przestrzeñ nazw dla SceneManager
+
 
 public class GameOverManager : MonoBehaviour
 {
     [Header("UI References")]
-    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject gameOverPanel; // Panel Game Over
+    [SerializeField] private GameObject blockerPanel; // Panel blokuj¹cy interakcje
+    [SerializeField] private TextMeshProUGUI gameOverText; // Komponent TextMeshProUGUI
 
     private void Start()
     {
-        gameOverPanel.SetActive(false); // Na pocz¹tku ekran GameOver jest ukryty
+        gameOverPanel.SetActive(false); // Ukrywamy ekran Game Over
+        blockerPanel.SetActive(false); // Ukrywamy panel blokuj¹cy interakcje
     }
 
     // Metoda do pokazania ekranu Game Over
     public void ShowGameOver()
     {
-        gameOverPanel.SetActive(true); // Pokazuje panel Game Over
+        blockerPanel.SetActive(true); // Pokazujemy czarny ekran blokuj¹cy
+        gameOverPanel.SetActive(true); // Pokazujemy ekran Game Over
+
+        // Ustawienie tekstu "Game Over" w przypadku przegranej
+        if (gameOverText != null)
+        {
+            gameOverText.text = "Game Over!"; // Ustawiamy komunikat
+        }
     }
 
     // Funkcja do restartu gry
@@ -26,6 +38,6 @@ public class GameOverManager : MonoBehaviour
     // Funkcja do przejœcia do menu g³ównego
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu"); // Zmieniamy "MainMenu" na nazwê sceny menu
+        SceneManager.LoadScene("Main Menu"); // Zmieniamy "MainMenu" na nazwê sceny menu
     }
 }
