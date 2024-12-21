@@ -13,7 +13,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float enemiesPerSecond = 0.5f;
     [SerializeField] private float timeBetweenWaves = 3f;
     [SerializeField] private float difficultyScalingFactor = 0.75f;
-    [SerializeField] private float enemySpeed = 2f;
+
+    // Edytowalne w Inspektorze
+    [SerializeField] private float baseEnemySpeed = 2f; // Domyœlna prêdkoœæ wrogów
     [SerializeField] private int totalWaves = 10; // Ca³kowita liczba fal
 
     [Header("Events")]
@@ -35,15 +37,19 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(StartWave());
     }
 
-    private void Update()
+    public void Update()
     {
         if (!isSpawing) return;
 
         timeSinceLastSpawn += Time.deltaTime;
 
+        // Obliczanie prêdkoœci wrogów w tej fali
+        float enemySpeed = baseEnemySpeed + (currentWave - 1) * 0.5f;
+        Debug.Log($"Prêdkoœæ wrogów w tej fali: {enemySpeed}"); // Debugowanie prêdkoœci
+
         if (timeSinceLastSpawn >= (1f / enemiesPerSecond) && enemiesLeftToSpawn > 0)
         {
-            SpawnEnemy();
+            SpawnEnemy(enemySpeed);  // Przekazanie prêdkoœci do wroga
             enemiesLeftToSpawn--;
             enemiesAlive++;
             timeSinceLastSpawn = 0f;
@@ -68,7 +74,7 @@ public class EnemySpawner : MonoBehaviour
         enemiesLeftToSpawn = EnemiesPerWave();
     }
 
-    private void EndWave()
+    public void EndWave()
     {
         isSpawing = false;
         timeSinceLastSpawn = 0f;
@@ -96,7 +102,7 @@ public class EnemySpawner : MonoBehaviour
         return Mathf.RoundToInt(baseEnemies * Mathf.Pow(currentWave, difficultyScalingFactor)); // Liczba wrogów w danej fali
     }
 
-    private void SpawnEnemy()
+    private void SpawnEnemy(float enemySpeed)
     {
         GameObject prefabToSpawn = enemyPrefabs[0];
         GameObject enemy = Instantiate(prefabToSpawn, LevelManager.main.StartPoint.position, Quaternion.identity);
@@ -111,5 +117,4 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogError("Brak komponentu EnemyMovement na prefabrykacie wroga!");
         }
     }
-
 }

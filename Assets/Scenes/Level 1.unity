@@ -2284,7 +2284,7 @@ GameObject:
   m_Component:
   - component: {fileID: 247659032}
   m_Layer: 0
-  m_Name: Path
+  m_Name: Road
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6900,7 +6900,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.6900373
+  orthographic size: 7.4420342
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6924,7 +6924,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 854584690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.59, y: 0.91, z: 0}
+  m_LocalPosition: {x: -2.77, y: 0.91, z: -0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12320,7 +12320,7 @@ MonoBehaviour:
   enemiesPerSecond: 0.5
   timeBetweenWaves: 1
   difficultyScalingFactor: 0.75
-  enemySpeed: 2
+  baseEnemySpeed: 2
   totalWaves: 1
 --- !u!114 &1549236405
 MonoBehaviour:

@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private EnemySpawner enemySpawner;  // Dodajemy referencjê do EnemySpawner
 
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f; // Prêdkoœæ poruszania siê wroga
@@ -26,7 +25,6 @@ public class EnemyMovement : MonoBehaviour
             Debug.LogError("Target jest null! Œcie¿ka nie zosta³a poprawnie ustawiona.");
             return;
         }
-
 
         if (attackingNexus) return; // Wirus nie porusza siê, gdy atakuje Nexus
 
@@ -86,4 +84,12 @@ public class EnemyMovement : MonoBehaviour
         Debug.Log($"Prêdkoœæ ustawiona na: {moveSpeed}");
     }
 
+    // Teraz wywo³anie EndWave w zale¿noœci od stanu wroga
+    public void EndWave()
+    {
+        if (enemySpawner != null)
+        {
+            enemySpawner.EndWave(); // Wywo³anie metody EndWave z EnemySpawner
+        }
+    }
 }
