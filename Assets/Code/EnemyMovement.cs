@@ -21,6 +21,13 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
+        if (target == null)
+        {
+            Debug.LogError("Target jest null! Œcie¿ka nie zosta³a poprawnie ustawiona.");
+            return;
+        }
+
+
         if (attackingNexus) return; // Wirus nie porusza siê, gdy atakuje Nexus
 
         if (Vector2.Distance(target.position, transform.position) <= 0.1f)
@@ -75,6 +82,8 @@ public class EnemyMovement : MonoBehaviour
     // Dodajemy metodê, aby zmieniaæ prêdkoœæ wroga z zewn¹trz
     public void SetSpeed(float newSpeed)
     {
-        moveSpeed = newSpeed; // Ustawienie nowej prêdkoœci
+        moveSpeed = newSpeed;
+        Debug.Log($"Prêdkoœæ ustawiona na: {moveSpeed}");
     }
+
 }

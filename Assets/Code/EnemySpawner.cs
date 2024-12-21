@@ -98,16 +98,18 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        GameObject prefabToSpawn = enemyPrefabs[0]; // Mo¿esz to rozszerzyæ o losowanie wrogów
-
-        // Tworzymy instancjê wroga
+        GameObject prefabToSpawn = enemyPrefabs[0];
         GameObject enemy = Instantiate(prefabToSpawn, LevelManager.main.StartPoint.position, Quaternion.identity);
 
-        // Zak³adaj¹c, ¿e skrypt ruchu wroga ma zmienn¹ speed, przypisujemy j¹
         EnemyMovement enemyMovement = enemy.GetComponent<EnemyMovement>();
         if (enemyMovement != null)
         {
-            enemyMovement.SetSpeed(enemySpeed);  // Ustawiamy prêdkoœæ wroga
+            enemyMovement.SetSpeed(enemySpeed); // Przekazywanie prêdkoœci do przeciwnika
+        }
+        else
+        {
+            Debug.LogError("Brak komponentu EnemyMovement na prefabrykacie wroga!");
         }
     }
+
 }
